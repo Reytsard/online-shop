@@ -1,0 +1,89 @@
+@import "mixins";
+@import "variables";
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+
+.header {
+  height: 90px;
+  background-color: $color-7;
+  align-items: end;
+  padding: 3.125rem 0.625rem 1.25rem 0.625rem;
+  justify-content: space-between;
+  color: $color-10;
+  font-weight: bold;
+  font-family: sans-serif;
+  .logo {
+    font-size: 22px;
+  }
+  #currency {
+    font-size: 16px;
+    background-color: $color-7;
+    border: none;
+    color: $color-5;
+  }
+  .sign-in-btn {
+    display: none;
+    font-size: 12px;
+  }
+  .cart-icon {
+    display: none;
+  }
+}
+.productsSection {
+  background-color: color;
+  .options {
+    padding: 0.63rem;
+    display: flex;
+    justify-content: space-between;
+    .cart-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 100%;
+      padding: 3px;
+      border: 1px solid $color-5;
+    }
+    .sign-in-btn {
+      @include normal-round-btn;
+      display: inline-flex;
+      padding: 0.625rem 1.25rem;
+      justify-content: center;
+      align-items: center;
+      gap: 0.3125rem;
+    }
+  }
+  .productsHeader {
+    display: none;
+    padding: 0;
+    margin: 0;
+  }
+  .productImage {
+    height: 165px;
+    width: 350px;
+  }
+  .productDetails {
+    height: 178px;
+    .productDesc {
+      height: 2.5rem;
+    }
+  }
+}
+.normal {
+  @include normal-round-btn;
+}
+@include media-breakpoint-up(lg) {
+  .header {
+    .headerOptions {
+      .cart-icon {
+        display: block;
+      }
+      .sign-in-btn {
+        display: block;
+      }
+    }
+  }
+  .productsSection {
+    padding-top: 20px;
+    .options {
+      display: none;
+    }
+  }
+}
