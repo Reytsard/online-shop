@@ -2,15 +2,13 @@ import Image from "next/image";
 import { NavLink } from "react-router-dom";
 import "../../styles/main.css";
 import Header from "../../Components/Header";
+import ProductOptions from "../../Components/ProductOptions";
 function productPage() {
   return (
     <div>
       <Header />
       <div className="productsSection">
-        <div className="options">
-          <div className="cart-icon">cart</div>
-          <div className="sign-in-btn">Sign in</div>
-        </div>
+        <ProductOptions />
         <div className="productsHeader">All Products</div>
         <div className="products d-flex justify-content-evenly align-items-center">
           <a href="/landing" className="text-decoration-none">
