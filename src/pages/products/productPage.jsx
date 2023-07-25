@@ -1,14 +1,15 @@
 import Image from "next/image";
-import { NavLink } from "react-router-dom";
 import "../../styles/main.css";
 import Header from "../../Components/Header";
 import ProductOptions from "../../Components/ProductOptions";
+import { useUser } from "@auth0/nextjs-auth0/client";
 function productPage() {
+  const user = useUser();
   return (
     <div>
-      <Header />
+      <Header user={user} />
       <div className="productsSection">
-        <ProductOptions />
+        <ProductOptions user={user} />
         <div className="productsHeader">All Products</div>
         <div className="products d-flex justify-content-evenly align-items-center">
           <a href="/landing" className="text-decoration-none">
