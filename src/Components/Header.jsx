@@ -1,26 +1,24 @@
 import React, { useMemo } from "react";
 import "../styles/main.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {} from "@fortawesome/fontawesome-svg-core";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 function Header({ user }) {
   const cartLogo = useMemo(() => {
     const leg = 0;
     if (leg === 0) {
-      return <FontAwesomeIcon icon={faCartShopping} />;
+      // return <FontAwesomeIcon icon={faCartShopping} />;
     } else {
       return (
         <div className="cartWithCount">
           <div className="cart-logo">
-            <FontAwesomeIcon icon={faCartShopping} />
+            {/* <FontAwesomeIcon icon={faCartShopping} /> */}
           </div>
           <div className="cart-count">{leg}</div>
         </div>
       );
     }
   });
-  console.log("user:", user);
   const userLogInOrOut = useMemo(() => {
     if (user.user === undefined) {
       return (
