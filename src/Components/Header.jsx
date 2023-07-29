@@ -1,17 +1,51 @@
-import React from "react";
+import React, { useMemo } from "react";
+import "../styles/main.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
-function Header() {
+function Header({ user }) {
+  const cartLogo = useMemo(() => {
+    const leg = 0;
+    if (leg === 0) {
+      // return <FontAwesomeIcon icon={faCartShopping} />;
+    } else {
+      return (
+        <div className="cartWithCount">
+          <div className="cart-logo">
+            {/* <FontAwesomeIcon icon={faCartShopping} /> */}
+          </div>
+          <div className="cart-count">{leg}</div>
+        </div>
+      );
+    }
+  });
+  const userLogInOrOut = useMemo(() => {
+    if (user.user === undefined) {
+      return (
+        <a href="/api/auth/login" className="sign-in-btn">
+          Sign in
+        </a>
+      );
+    } else {
+      return (
+        <div className="profileLink">
+          {/* add a link to profile picture here */}
+          <div className="Name">
+            Name Here{/* add the name of the user here */}
+          </div>
+        </div>
+      );
+    }
+  }, [user]);
   return (
     <div className="header d-flex">
       <a href="/products/productPage" className="text-decoration-none">
         <div className="logo">Logo</div>
       </a>
       <div className="headerOptions d-flex align-items-center gap-4">
-        <a href="/api/auth/login">
-          <div className="sign-in-btn normal">Sign in</div>
-        </a>
-        <a href="/cart/cart">
-          <div className="cart-icon">icon</div>
+        {userLogInOrOut}
+        <a href="/cart/cart" className="headerCart text-decoration-none">
+          {cartLogo}
         </a>
         <div className="currency">
           <select name="currency" id="currency">
