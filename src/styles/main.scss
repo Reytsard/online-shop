@@ -28,6 +28,10 @@
     display: none;
   }
 }
+.card {
+  width: 320px;
+}
+
 .headerCart {
   display: none;
 }
@@ -124,9 +128,9 @@
     width: 350px;
   }
   .productDetails {
-    height: 178px;
+    height: auto;
     .productDesc {
-      height: 2.5rem;
+      height: auto;
     }
   }
 }
@@ -194,6 +198,9 @@
   height: 48px;
   display: grid;
   place-items: center;
+}
+footer {
+  background-color: $color-7;
 }
 @include media-breakpoint-up(lg) {
   .productOptionCart {
