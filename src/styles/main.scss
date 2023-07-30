@@ -31,6 +31,26 @@
 .card {
   width: 320px;
 }
+.productRatings {
+  font-size: 12px;
+  .stars {
+    display: flex;
+    gap: 3px;
+  }
+}
+.buy-item {
+  width: 64px !important;
+  height: 32px;
+  .count-options {
+    display: none;
+  }
+}
+.buy-item:hover {
+  width: auto !important;
+  .count-options {
+    display: flex;
+  }
+}
 
 .headerCart {
   display: none;
@@ -125,9 +145,10 @@
   }
   .productImage {
     height: 165px;
-    width: 350px;
+    width: 100%;
   }
   .productDetails {
+    background-color: $color-2;
     height: auto;
     .productDesc {
       height: auto;

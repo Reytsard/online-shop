@@ -33,7 +33,7 @@ function cart() {
                   <h5>Samsung Universe 9</h5>
                   <div className="d-flex quantityButtons">
                     <button>+</button>
-                    <span>1</span>
+                    <span id="itemCount">1</span>
                     <button>-</button>
                   </div>
                 </div>

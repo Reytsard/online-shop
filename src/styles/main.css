@@ -12010,6 +12010,29 @@ textarea.form-control-lg {
   width: 320px;
 }
 
+.productRatings {
+  font-size: 12px;
+}
+.productRatings .stars {
+  display: flex;
+  gap: 3px;
+}
+
+.buy-item {
+  width: 64px !important;
+  height: 32px;
+}
+.buy-item .count-options {
+  display: none;
+}
+
+.buy-item:hover {
+  width: auto !important;
+}
+.buy-item:hover .count-options {
+  display: flex;
+}
+
 .headerCart {
   display: none;
 }
@@ -12145,9 +12168,10 @@ textarea.form-control-lg {
 }
 .productsSection .productImage {
   height: 165px;
-  width: 350px;
+  width: 100%;
 }
 .productsSection .productDetails {
+  background-color: #f8f9fc !important;
   height: auto;
 }
 .productsSection .productDetails .productDesc {

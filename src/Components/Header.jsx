@@ -7,12 +7,12 @@ function Header({ user }) {
   const cartLogo = useMemo(() => {
     const leg = 0;
     if (leg === 0) {
-      // return <FontAwesomeIcon icon={faCartShopping} />;
+      return <FontAwesomeIcon icon={faCartShopping} />;
     } else {
       return (
         <div className="cartWithCount">
           <div className="cart-logo">
-            {/* <FontAwesomeIcon icon={faCartShopping} /> */}
+            <FontAwesomeIcon icon={faCartShopping} />
           </div>
           <div className="cart-count">{leg}</div>
         </div>
