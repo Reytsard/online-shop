@@ -1,4 +1,4 @@
-const { createSlice } = require("@reduxjs/toolkit");
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const storeSlice = createSlice({
   name: "store",
@@ -7,8 +7,13 @@ const storeSlice = createSlice({
     isLoggedIn: false,
     cart: [],
   },
-  reducers: {},
-  extraReducers: (builder) => {},
+  reducers: {
+    addItemToCart: (state, action) => {
+      state.cart.push(action.payload);
+    },
+  },
+  // extraReducers: (builder) => {},
 });
 
-export default storeSlice.actions;
+export const { addItemToCart } = storeSlice.actions;
+export default storeSlice.reducer;

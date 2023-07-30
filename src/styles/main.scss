@@ -202,6 +202,27 @@
 footer {
   background-color: $color-7;
 }
+.product-item {
+  .product-add-to-cart {
+    .add-to-cart-options {
+      display: none;
+      .shopping-cart-icon {
+        padding-top: 7px;
+        margin: 0;
+        display: grid;
+        place-items: center;
+      }
+    }
+  }
+  .product-add-to-cart:hover {
+    .add-to-cart-options {
+      display: block;
+    }
+    .add-to-cart-text {
+      display: none;
+    }
+  }
+}
 @include media-breakpoint-up(lg) {
   .productOptionCart {
     display: none;

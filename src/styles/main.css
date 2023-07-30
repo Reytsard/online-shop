@@ -12276,6 +12276,22 @@ footer {
   background-color: #192140 !important;
 }
 
+.product-item .product-add-to-cart .add-to-cart-options {
+  display: none;
+}
+.product-item .product-add-to-cart .add-to-cart-options .shopping-cart-icon {
+  padding-top: 7px;
+  margin: 0;
+  display: grid;
+  place-items: center;
+}
+.product-item .product-add-to-cart:hover .add-to-cart-options {
+  display: block;
+}
+.product-item .product-add-to-cart:hover .add-to-cart-text {
+  display: none;
+}
+
 @media (min-width: 992px) {
   .productOptionCart {
     display: none;

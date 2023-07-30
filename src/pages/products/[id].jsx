@@ -4,6 +4,9 @@ import Footer from "../../Components/Footer";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import axios from "axios";
 import Image from "next/image";
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 export const getServerSideProps = async (context) => {
   const postId = context.params?.id;
@@ -15,7 +18,16 @@ export const getServerSideProps = async (context) => {
 };
 
 export default function Post({ data }) {
+  const [productNumber, setProductNumber] = useState(1);
   const user = useUser();
+  const addItemQuantityHandler = () => {
+    setProductNumber(productNumber + 1);
+  };
+  const minusItemQuantityHandler = () => {
+    productNumber <= 1
+      ? setProductNumber(1)
+      : setProductNumber(productNumber - 1);
+  };
   return (
     <div className="product-item">
       <Header user={user} />
@@ -38,7 +50,22 @@ export default function Post({ data }) {
 
       <div className="btn btn-lg g-0 w-100 product-add-to-cart bg-primary rounded-2 text-center ">
         {/* add height for this button  */}
-        Add to Cart
+        <div className="add-to-cart-options">
+          <div className="row">
+            <button className="col" onClick={addItemQuantityHandler}>
+              +
+            </button>
+            <span className="col">{productNumber}</span>
+            <button className="col" onClick={minusItemQuantityHandler}>
+              -
+            </button>
+            <FontAwesomeIcon
+              className="col shopping-cart-icon"
+              icon={faShoppingCart}
+            />
+          </div>
+        </div>
+        <span className="add-to-cart-text">Add to Cart</span>
       </div>
       <div className="other-images d-flex justify-content-center gap-2 my-2 mx-1">
         <Image
