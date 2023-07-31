@@ -21,7 +21,6 @@ const storeSlice = createSlice({
       }
     },
   },
-  // extraReducers: (builder) => {},
 });
 
 export const { addItemToCart } = storeSlice.actions;

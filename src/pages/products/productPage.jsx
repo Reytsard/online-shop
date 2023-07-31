@@ -21,7 +21,6 @@ function productPage() {
     async function getData() {
       const response = await fetch("/api/test");
       const data = await response.json();
-      console.log("data.products:", data.products);
       setProducts(data.products);
     }
     getData();
@@ -103,8 +102,11 @@ function productPage() {
       <div className="productsSection p-2">
         <ProductOptions user={user} />
         <div className="productsHeader">All Products</div>
-        <div className="products gap-4 d-flex justify-content-evenly align-items-start flex-wrap">
+        <div className="products gap-4 d-flex justify-content-evenly align-items-start flex-wrap mb-4">
           {productsCards}
+        </div>
+        <div className="show-more-btn w-100 btn btn-lg btn-outline-primary rounded-4 grid place-items-center">
+          Show More
         </div>
       </div>
     </div>
