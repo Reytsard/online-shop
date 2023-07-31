@@ -9,7 +9,16 @@ const storeSlice = createSlice({
   },
   reducers: {
     addItemToCart: (state, action) => {
-      state.cart.push(action.payload);
+      const index = state.cart.findIndex(
+        (item) => item.item.id === action.payload.id
+      );
+      if (index !== -1) {
+        const item = {
+          item: action.payload,
+          quantity: 1,
+        };
+        state.cart.push(item);
+      }
     },
   },
   // extraReducers: (builder) => {},

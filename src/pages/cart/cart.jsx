@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "../../styles/main.css";
 import Header from "../../Components/Header";
 import ProductOptions from "../../Components/ProductOptions";
@@ -6,10 +6,16 @@ import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
 function cart() {
   const user = useUser();
-  console.log(user);
+  const userCart = useSelector((state) => state.store.cart);
+  const [cartProducts, setCartProducts] = useState([]);
+  useEffect(() => {
+    setCartProducts(userCart);
+  }, [setCartProducts, userCart]);
 
+  console.log(cartProducts);
   return (
     <div>
       <Header user={user} />

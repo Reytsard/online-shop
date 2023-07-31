@@ -3,14 +3,17 @@ import "../../styles/main.css";
 import Header from "../../Components/Header";
 import ProductOptions from "../../Components/ProductOptions";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faShop,
   faStar,
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../../feature/storeSlice";
 function productPage() {
+  const dispatch = useDispatch();
   const [itemCount, setItemCount] = useState(1);
   const user = useUser();
   const [products, setProducts] = useState([]);
@@ -23,14 +26,17 @@ function productPage() {
     }
     getData();
   }, []);
-  const addItemCount = () => {
-    let number = itemCount;
-    number++;
-    setItemCount(number);
-  };
+
   const minusItemCount = () => {
     itemCount >= 1 ? setItemCount(1) : setItemCount(itemCount - 1);
   };
+  const addItem = useCallback(
+    (item) => {
+      dispatch(addItemToCart(item));
+      // showHowMany();
+    },
+    [products]
+  );
   const productsCards = useMemo(() => {
     return products.map((item) => {
       return (
@@ -67,12 +73,13 @@ function productPage() {
                   </div>
                   <div
                     className="buy-item col rounded-3 d-flex justify-content-evenly align-items-center bg-primary"
-                    onClick={(e) => e.preventDefault()}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      addItem(item);
+                    }}
                   >
                     <div className="count-options">
-                      <button className="btn-sm" onClick={addItemCount}>
-                        +
-                      </button>
+                      <button className="btn-sm">+</button>
                       <span>{itemCount}</span>
                       <button className="btn-sm" onClick={minusItemCount}>
                         -
