@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const storeSlice = createSlice({
-  name: "store",
+  name: "stores",
   initialState: {
     user: "",
     isLoggedIn: false,
@@ -13,6 +13,8 @@ const storeSlice = createSlice({
         (item) => item.item.id === action.payload.id
       );
       if (index !== -1) {
+        state.cart[index].quantity++;
+      } else {
         const item = {
           item: action.payload,
           quantity: 1,

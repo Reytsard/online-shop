@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import "../../styles/main.css";
 import Header from "../../Components/Header";
 import ProductOptions from "../../Components/ProductOptions";
@@ -9,13 +9,15 @@ import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 function cart() {
   const user = useUser();
-  const userCart = useSelector((state) => state.store.cart);
-  const [cartProducts, setCartProducts] = useState([]);
-  useEffect(() => {
-    setCartProducts(userCart);
-  }, [setCartProducts, userCart]);
+  // const userCart = useSelector((state) => state.store.cart);
+  // const [cartProducts, setCartProducts] = useState(userCart);
+  // // useEffect(() => {
+  // //   setCartProducts(userCart);
+  // // }, [setCartProducts, userCart]);
+  // // const removeItemFromCart = useCallback(() => {
 
-  console.log(cartProducts);
+  // // },[]);
+  // console.log(cartProducts);
   return (
     <div>
       <Header user={user} />
@@ -47,7 +49,11 @@ function cart() {
                 </div>
                 <div className="col">$1,249</div>
                 <div className="col d-flex justify-content-center align-items-center">
-                  <FontAwesomeIcon icon={faCircleXmark} size="2x" />
+                  <FontAwesomeIcon
+                    icon={faCircleXmark}
+                    size="2x"
+                    // onClick={removeItemFromCart}
+                  />
                 </div>
                 {/* <button type="button" className="col-4 remove-item">
                 x

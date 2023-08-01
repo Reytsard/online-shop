@@ -5,14 +5,15 @@ import ProductOptions from "../../Components/ProductOptions";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch, useSelector } from "react-redux";
+import { addItemToCart } from "../../feature/storeSlice";
 import {
   faShop,
   faStar,
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch } from "react-redux";
-import { addItemToCart } from "../../feature/storeSlice";
 function productPage() {
+  const cart = useSelector((state) => state.stores.cart);
   const dispatch = useDispatch();
   const [itemCount, setItemCount] = useState(1);
   const user = useUser();
@@ -31,10 +32,12 @@ function productPage() {
   };
   const addItem = useCallback(
     (item) => {
+      console.log("item:", item);
       dispatch(addItemToCart(item));
+      console.log(cart);
       // showHowMany();
     },
-    [products]
+    [products, dispatch, addItemToCart]
   );
   const productsCards = useMemo(() => {
     return products.map((item) => {
