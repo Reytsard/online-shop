@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import "../../styles/main.css";
 import Header from "../../Components/Header";
@@ -13,7 +15,8 @@ import {
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
 function productPage() {
-  const cart = useSelector((state) => state.stores.cart);
+  console.log("client side");
+  const cart = useSelector((state) => state.store.cart);
   const dispatch = useDispatch();
   const [itemCount, setItemCount] = useState(1);
   const user = useUser();
@@ -26,7 +29,6 @@ function productPage() {
     }
     getData();
   }, []);
-
   const minusItemCount = () => {
     itemCount >= 1 ? setItemCount(1) : setItemCount(itemCount - 1);
   };
@@ -77,7 +79,8 @@ function productPage() {
                     className="buy-item col rounded-3 d-flex justify-content-evenly align-items-center bg-primary"
                     onClick={(e) => {
                       e.preventDefault();
-                      addItem(item);
+                      dispatch(addItemToCart(item));
+                      console.log(cart);
                     }}
                   >
                     <div className="count-options">
@@ -98,7 +101,14 @@ function productPage() {
         </a>
       );
     });
-  }, [products]);
+  }, [
+    products,
+    FontAwesomeIcon,
+    faShoppingCart,
+    dispatch,
+    addItemToCart,
+    cart,
+  ]);
   return (
     <div>
       <Header user={user} />

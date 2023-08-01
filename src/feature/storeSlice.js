@@ -1,7 +1,8 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+"use client";
+import { createSlice } from "@reduxjs/toolkit";
 
-const storeSlice = createSlice({
-  name: "stores",
+const StoreSlice = createSlice({
+  name: "store",
   initialState: {
     user: "",
     isLoggedIn: false,
@@ -25,5 +26,5 @@ const storeSlice = createSlice({
   },
 });
 
-export const { addItemToCart } = storeSlice.actions;
-export default storeSlice.reducer;
+export const { addItemToCart } = StoreSlice.actions;
+export default StoreSlice.reducer;

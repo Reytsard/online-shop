@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+"client side";
+
 import "../../styles/main.css";
 import Header from "../../Components/Header";
 import ProductOptions from "../../Components/ProductOptions";
@@ -7,25 +8,17 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
+
 function cart() {
   const user = useUser();
-  // const userCart = useSelector((state) => state.store.cart);
-  // const [cartProducts, setCartProducts] = useState(userCart);
-  // // useEffect(() => {
-  // //   setCartProducts(userCart);
-  // // }, [setCartProducts, userCart]);
-  // // const removeItemFromCart = useCallback(() => {
+  const cart = useSelector((state) => state.store.cart);
+  console.log("cart:", cart);
 
-  // // },[]);
-  // console.log(cartProducts);
   return (
     <div>
       <Header user={user} />
       <ProductOptions user={user} />
       <div className="product">
-        {/* <a href="/api/auth/logout">
-        <button>signout</button>
-      </a> */}
         <div className="cart-client p-4">
           <div className="cart-client-header">
             <div className="h1">Shopping Bag</div>
@@ -35,7 +28,7 @@ function cart() {
             <div className="card w-auto">
               <div className="row card-body align-items-center">
                 <div className="col">
-                  <Image src="" alt="item" height="53" width="53" />
+                  {/* <Image src="" alt="item" height="53" width="53" /> */}
                 </div>
                 <div className="col-6">
                   <div className="row">
@@ -49,15 +42,8 @@ function cart() {
                 </div>
                 <div className="col">$1,249</div>
                 <div className="col d-flex justify-content-center align-items-center">
-                  <FontAwesomeIcon
-                    icon={faCircleXmark}
-                    size="2x"
-                    // onClick={removeItemFromCart}
-                  />
+                  <FontAwesomeIcon icon={faCircleXmark} size="2x" />
                 </div>
-                {/* <button type="button" className="col-4 remove-item">
-                x
-              </button> */}
               </div>
             </div>
           </div>
