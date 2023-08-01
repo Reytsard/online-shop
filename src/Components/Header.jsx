@@ -1,5 +1,5 @@
-"use client";
 import React, { useMemo } from "react";
+import Link from "next/link";
 import "../styles/main.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
@@ -23,9 +23,9 @@ function Header({ user }) {
   const userLogInOrOut = useMemo(() => {
     if (user.user === undefined) {
       return (
-        <a href="/api/auth/login" className="sign-in-btn">
+        <Link href="/api/auth/login" className="sign-in-btn">
           Sign in
-        </a>
+        </Link>
       );
     } else {
       return (
@@ -40,14 +40,14 @@ function Header({ user }) {
   }, [user]);
   return (
     <div className="header d-flex">
-      <a href="/products/productPage" className="text-decoration-none">
+      <Link href="/products/productPage" className="text-decoration-none">
         <div className="logo">Logo</div>
-      </a>
+      </Link>
       <div className="headerOptions d-flex align-items-center gap-4">
         {userLogInOrOut}
-        <a href="/cart/cart" className="headerCart text-decoration-none">
+        <Link href="/cart/cart" className="headerCart text-decoration-none">
           {cartLogo}
-        </a>
+        </Link>
         <div className="currency">
           <select name="currency" id="currency">
             <option value="USD">USD</option>

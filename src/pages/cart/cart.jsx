@@ -1,4 +1,4 @@
-"client side";
+"use client";
 
 import "../../styles/main.css";
 import Header from "../../Components/Header";
@@ -8,6 +8,16 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
+import Link from "next/link";
+
+// export const getServerSideProps = () => {
+//   const cart = useSelector((state) => state.store.cart);
+//   return {
+//     props: {
+//       cart: cart,
+//     },
+//   };
+// };
 
 function cart() {
   const user = useUser();
@@ -69,19 +79,19 @@ function cart() {
                   Place order (Add Onclick function for this)
                 </button>
               ) : (
-                <a
+                <Link
                   href="/order-placed/success"
                   className="place-order-btn text-decoration-none"
                 >
                   Place order (Add Onclick function for this)
-                </a>
+                </Link>
               )}
-              <a
+              <Link
                 href="/products/productPage"
                 className="continue-shopping text-decoration-none"
               >
                 Continue shopping
-              </a>
+              </Link>
             </div>
           </div>
         </div>
