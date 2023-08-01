@@ -1,14 +1,13 @@
 import React from "react";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
-import { Provider } from "react-redux";
-import { store } from "../feature/store";
+import Providers from "../feature/Providers";
 
 export default function App({ Component, pageProps }) {
   return (
-    <Provider store={store}>
+    <Providers>
       <UserProvider>
         <Component {...pageProps} />
       </UserProvider>
-    </Provider>
+    </Providers>
   );
 }

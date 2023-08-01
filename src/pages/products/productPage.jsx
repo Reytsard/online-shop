@@ -1,6 +1,6 @@
 "use client";
-
 import Image from "next/image";
+import Link from "next/link";
 import "../../styles/main.css";
 import Header from "../../Components/Header";
 import ProductOptions from "../../Components/ProductOptions";
@@ -15,7 +15,6 @@ import {
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
 function productPage() {
-  console.log("client side");
   const cart = useSelector((state) => state.store.cart);
   const dispatch = useDispatch();
   const [itemCount, setItemCount] = useState(1);
@@ -44,7 +43,7 @@ function productPage() {
   const productsCards = useMemo(() => {
     return products.map((item) => {
       return (
-        <a
+        <Link
           href={`/products/${item.id}`}
           className="text-decoration-none"
           key={item.id}
@@ -98,7 +97,7 @@ function productPage() {
               </div>
             </div>
           </div>
-        </a>
+        </Link>
       );
     });
   }, [

@@ -1,15 +1,15 @@
-"use client";
 import React, { useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 function ProductOptions({ user }) {
   const userLogInOrOut = useMemo(() => {
     if (user.user === undefined) {
       return (
-        <a href="/api/auth/login" className="sign-in-btn">
+        <Link href="/api/auth/login" className="sign-in-btn">
           Sign in
-        </a>
+        </Link>
       );
     } else {
       return (
@@ -40,9 +40,9 @@ function ProductOptions({ user }) {
   });
   return (
     <div className="options">
-      <a href="/cart/cart" className="productOptionCart">
+      <Link href="/cart/cart" className="productOptionCart">
         {cartLogo}
-      </a>
+      </Link>
       {userLogInOrOut}
     </div>
   );
