@@ -27,14 +27,17 @@ export default function Post({ data }) {
 
   const dataCards = useMemo(() => {
     return data.products.slice(0, arrayLimit).map((item) => (
-      <div className="card" key={item.id}>
-        {item.id}
-        <button onClick={() => addToCart(item)}>Add cart</button>
-      </div>
+      <Link href={`/folder1/${item.id}`} key={item.id}>
+        <div className="card">
+          {item.id}
+          <button onClick={() => addToCart(item)}>Add cart</button>
+        </div>
+      </Link>
     ));
   }, [data, arrayLimit]);
   return (
     <>
+      <Link href={"/api/auth/login"}>Login</Link>
       <h1>Page1</h1>
       <h5>Count: {count}</h5>
       <button onClick={doAction}>+</button>

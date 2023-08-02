@@ -1,13 +1,12 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import "../styles/main.css";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <main className={styles.main}>
-      <a href="/products/productPage">
-        <h1>Products</h1>
-      </a>
+      <Link href={"/folder1/page1"}>Products</Link>
     </main>
   );
 }

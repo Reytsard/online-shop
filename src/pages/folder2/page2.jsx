@@ -25,6 +25,7 @@ export default function Post() {
   };
   return (
     <>
+      <Link href={"/api/auth/logout"}>LogOut</Link>
       <h1>Page 2</h1>
       <h5>Count: {count}</h5>
       <button onClick={doAction}>+</button>
