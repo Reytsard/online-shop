@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import PageCounter from "../../Components/PageCounter";
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const response = await fetch(`${process.env.FRONTEND_URL}/api/test`);
   const data = await response.json();
   return {
