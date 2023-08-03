@@ -1,13 +1,13 @@
 import axios from "axios";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart, addProductToCart } from "../../feature/storeSlice";
 import Header from "../../Components/Header";
 import ProductOptions from "../../Components/ProductOptions";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 export const getServerSideProps = async (context) => {
   const id = context.params?.productId;
@@ -18,6 +18,8 @@ export const getServerSideProps = async (context) => {
   };
 };
 export default function Product({ data }) {
+  const curr = useSelector((state) => state.store.currency.name);
+  const rates = useSelector((state) => state.store.rates);
   const [productNumber, setProductNumber] = useState(1);
   const addItemQuantityHandler = () => {
     setProductNumber(productNumber + 1);
@@ -38,12 +40,28 @@ export default function Product({ data }) {
     },
     [dispatch, productNumber, addProductToCart, data]
   );
+  const currencySign = useMemo(() => {
+    return curr === "USD" ? (
+      <span>$</span>
+    ) : curr === "AUD" ? (
+      <span>AUD$</span>
+    ) : curr === "PHP" ? (
+      <span>₱</span>
+    ) : curr === "EUR" ? (
+      <span>€</span>
+    ) : (
+      <span>Rp</span>
+    );
+  }, [curr]);
   return (
     <>
       <>
         <div>
           <Header />
           <ProductOptions />
+          <Link className="btn btn-outline-primary" href={"/folder1/page1"}>
+            back
+          </Link>
           <div className="product-item">
             <div className="product-image pb-5 d-flex align-items-center justify-content-center">
               <Image
@@ -55,7 +73,10 @@ export default function Product({ data }) {
               />
             </div>
             <div className="product-price d-flex align-items-center gap-4">
-              <h1 className="m-2">${data.price}</h1>
+              <h1 className="m-2">
+                {currencySign}
+                {Math.floor(data.price * rates[curr] * 100) / 100}
+              </h1>
               <div className="discount-percentage rounded-5 py-1 px-2 color-13">
                 {data.discountPercentage}%
               </div>
@@ -130,10 +151,6 @@ export default function Product({ data }) {
           </div>
         </div>
       </>
-      <Link href={"/folder1/page1"}>back</Link>
-      <div className="container">{data.title}</div>
-      <div className="container">{data.price}</div>
-      <button onClick={() => addItem(data)}>Add To Cart</button>
     </>
   );
 }

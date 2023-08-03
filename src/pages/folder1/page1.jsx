@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart, addNumber } from "../../feature/storeSlice";
-import { useMemo, useState } from "react";
+import { GetRates, addItemToCart, addNumber } from "../../feature/storeSlice";
+import { useEffect, useMemo, useState } from "react";
 import Header from "../../Components/Header";
 import ProductOptions from "../../Components/ProductOptions";
 import Image from "next/image";
@@ -11,6 +11,7 @@ import {
   faShop,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
+import PageCounter from "../../Components/PageCounter";
 
 export const getServerSideProps = async () => {
   const response = await fetch(`${process.env.FRONTEND_URL}/api/test`);
@@ -22,11 +23,28 @@ export const getServerSideProps = async () => {
 
 export default function Post({ data }) {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(GetRates());
+  }, [dispatch, GetRates]);
+  const curr = useSelector((state) => state.store.currency.name);
+  const rates = useSelector((state) => state.store.rates);
   let [arrayLimit, setArrayLimit] = useState(6);
   const addArrayLimit = () => {
     if (arrayLimit <= data.products.length) setArrayLimit(arrayLimit + 5);
   };
-
+  const currencySign = useMemo(() => {
+    return curr === "USD" ? (
+      <span>$</span>
+    ) : curr === "AUD" ? (
+      <span>AUD$</span>
+    ) : curr === "PHP" ? (
+      <span>₱</span>
+    ) : curr === "EUR" ? (
+      <span>€</span>
+    ) : (
+      <span>Rp</span>
+    );
+  }, [curr]);
   const dataCards = useMemo(() => {
     return data.products.slice(0, arrayLimit).map((item) => (
       <Link
@@ -47,7 +65,10 @@ export default function Post({ data }) {
           <div className="productDetails d-flex flex-column flex-wrap py-1 px-3">
             <h2 className="productName">{item.title}</h2>
             <div className="productDesc">{item.description}</div>
-            <h2 className="productPrice h-auto">${item.price}</h2>
+            <h2 className="productPrice h-auto">
+              {currencySign}
+              {Math.floor(item.price * rates[curr] * 100) / 100}
+            </h2>
             <div className="card-options row d-flex justify-content-between">
               <div className="row productRatings py-1 px-3 d-flex justify-content-between align-items-center">
                 <div className="col stars">
@@ -60,24 +81,7 @@ export default function Post({ data }) {
                     {item.stock}
                   </div>
                 </div>
-                <div
-                  className="buy-item col rounded-3 d-flex justify-content-evenly align-items-center bg-primary"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    dispatch(addItemToCart(item));
-                  }}
-                >
-                  {/* <div className="count-options">
-                    <button className="btn-sm">+</button>
-                    <span>{itemCount}</span>
-                    <button className="btn-sm" onClick={minusItemCount}>
-                      -
-                    </button>
-                  </div> */}
-                  <div className="buy-item-icon">
-                    <FontAwesomeIcon icon={faShoppingCart} />
-                  </div>
-                </div>
+                <PageCounter item={item} />
               </div>
             </div>
           </div>
@@ -94,6 +98,9 @@ export default function Post({ data }) {
     faShop,
     dispatch,
     addItemToCart,
+    rates,
+    curr,
+    Math,
   ]);
   return (
     <>

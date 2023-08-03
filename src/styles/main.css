@@ -12022,8 +12022,28 @@ textarea.form-control-lg {
   width: 64px !important;
   height: 32px;
 }
-.buy-item .count-options {
+.buy-item .plusMinus {
   display: none;
+}
+.buy-item .buy-item-icon {
+  display: block;
+}
+
+.buy-item:hover {
+  background-color: white;
+  border: 1px solid #0266ff !important;
+  color: #0266ff !important;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.buy-item:hover .plusMinus {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.buy-item:hover .buy-item-icon {
+  display: block;
 }
 
 .headerCart {

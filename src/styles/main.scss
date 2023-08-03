@@ -41,11 +41,30 @@
 .buy-item {
   width: 64px !important;
   height: 32px;
-  .count-options {
+
+  .plusMinus {
     display: none;
   }
+  .buy-item-icon {
+    display: block;
+  }
 }
-
+.buy-item:hover {
+  background-color: white;
+  border: 1px solid $color-13;
+  color: $color-13;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  .plusMinus {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .buy-item-icon {
+    display: block;
+  }
+}
 .headerCart {
   display: none;
 }

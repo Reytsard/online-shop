@@ -1,5 +1,6 @@
 "use client";
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const StoreSlice = createSlice({
   name: "store",
@@ -7,11 +8,30 @@ const StoreSlice = createSlice({
     user: "",
     isLoggedIn: false,
     cart: [],
-    count: 0,
+    currency: {
+      name: "USD",
+      rate: 1.0,
+    },
+    rates: {},
+    orders: [],
   },
   reducers: {
+    clearCart: (state) => {
+      state.cart = [];
+    },
+    addToOrders: (state, action) => {
+      state.orders.push(action.payload);
+    },
+    changeCurrency: (state, action) => {
+      state.currency.name = action.payload;
+    },
     addProductToCart: (state, action) => {
-      state.cart.push(action.payload);
+      const index = state.cart.findIndex(
+        (item) => item.item.id === action.payload.item.id
+      );
+      index !== -1
+        ? (state.cart[index].quantity += action.payload.quantity)
+        : state.cart.push(action.payload);
     },
     addItemToCart: (state, action) => {
       const index = state.cart.findIndex(
@@ -53,6 +73,11 @@ const StoreSlice = createSlice({
       state.cart.splice(index, 1);
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(GetRates.fulfilled, (state, action) => {
+      state.rates = action.payload.rates;
+    });
+  },
 });
 
 export const {
@@ -62,5 +87,24 @@ export const {
   addQuantity,
   removeItem,
   addProductToCart,
+  changeCurrency,
+  addToOrders,
+  clearCart,
 } = StoreSlice.actions;
 export default StoreSlice.reducer;
+
+export const GetRates = createAsyncThunk("Fetch/DataRates", async () => {
+  const options = {
+    method: "GET",
+    url: "https://exchange-rate-api1.p.rapidapi.com/latest",
+    params: { base: "USD" },
+    headers: {
+      "X-RapidAPI-Key": "b0094d87f1mshd0a0cbb356d38adp15b6e3jsn6c11f6cf6a0d",
+      "X-RapidAPI-Host": "exchange-rate-api1.p.rapidapi.com",
+    },
+  };
+
+  const response = await axios.request(options);
+  const data = await response.data;
+  return data;
+});

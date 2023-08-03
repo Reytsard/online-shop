@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addNumber,
   addQuantity,
+  addToOrders,
+  clearCart,
   minusQuantity,
   removeItem,
 } from "../../feature/storeSlice";
@@ -15,9 +17,24 @@ import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function Post() {
+  const curr = useSelector((state) => state.store.currency.name);
+  const rates = useSelector((state) => state.store.rates);
+  const currencySign = useMemo(() => {
+    return curr === "USD" ? (
+      <span>$</span>
+    ) : curr === "AUD" ? (
+      <span>AUD$</span>
+    ) : curr === "PHP" ? (
+      <span>₱</span>
+    ) : curr === "EUR" ? (
+      <span>€</span>
+    ) : (
+      <span>Rp</span>
+    );
+  }, [curr]);
   const user = useUser();
+  // console.log(user);
   const dispatch = useDispatch();
-  const count = useSelector((state) => state.store.count);
   const cart = useSelector((state) => state.store.cart);
   const minusCartQuantity = (id) => {
     dispatch(minusQuantity(id));
@@ -66,7 +83,12 @@ export default function Post() {
                   </button>
                 </div>
               </div>
-              <div className="col gray-color">${item.item.price}</div>
+              <div className="col gray-color">
+                {currencySign}
+                {Math.floor(
+                  item.item.price * item.quantity * rates[curr] * 100
+                ) / 100}
+              </div>
               <div className="col">
                 <button
                   className=" btn btn-outline-primary rounded-circle"
@@ -90,11 +112,29 @@ export default function Post() {
       )
     )
   );
+  const placeOrder = () => {
+    const order = {
+      id: user.user.sid,
+      items: cart.map((item) => {
+        return {
+          id: item.item.id,
+          amount: item.quantity,
+        };
+      }),
+      currency: {
+        name: curr,
+        rate: rates[curr],
+      },
+    };
+    dispatch(addToOrders(order));
+    console.log(order);
+    // dispatch(clearCart());
+  };
   return (
     <>
+      {/* {user.user.org_id} */}
       <Header />
       <ProductOptions />
-      <Link href={"/api/auth/logout"}>LogOut</Link>
       <Link href={"/folder1/page1"} className="btn btn-lg btn-outline-primary">
         back
       </Link>
@@ -110,12 +150,22 @@ export default function Post() {
       <div className="details">
         <div className="totalCost d-flex align-items-center gap-4">
           <span>Total:</span>
-          <span>$12498</span>
+          <span>
+            {currencySign}
+            {Math.floor(
+              cart.reduce((prev, cur) => {
+                return (
+                  Number(prev) +
+                  Number(cur.item.price * rates[curr] * cur.quantity)
+                );
+              }, 0) * 100
+            ) / 100}
+          </span>
         </div>
         {user.user === undefined ? (
           <div className="sign-in-status">
             <span>
-              To place an order, <a href="/sign-in/signin">sign in</a>
+              To place an order, <Link href="/sign-in/signin">sign in</Link>
             </span>
           </div>
         ) : (
@@ -140,8 +190,9 @@ export default function Post() {
             <Link
               href="/order/order-placed"
               className="btn bg-primary rounded-pill text-decoration-none place-order-btn"
+              onClick={placeOrder}
             >
-              Place order (Add Onclick function for this)
+              Place order
             </Link>
           )}
           <Link

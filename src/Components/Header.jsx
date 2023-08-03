@@ -5,12 +5,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Image from "next/image";
+import { useDispatch, useSelector } from "react-redux";
+import { changeCurrency } from "../feature/storeSlice";
 
 function Header() {
+  const dispatch = useDispatch();
   const user = useUser();
+  const cart = useSelector((state) => state.store.cart);
+
   const cartLogo = useMemo(() => {
-    const leg = 0;
-    if (leg === 0) {
+    if (cart.length === 0) {
       return <FontAwesomeIcon icon={faCartShopping} />;
     } else {
       return (
@@ -18,11 +22,11 @@ function Header() {
           <div className="cart-logo">
             <FontAwesomeIcon icon={faCartShopping} />
           </div>
-          <div className="cart-count">{leg}</div>
+          <div className="cart-count">{cart.length}</div>
         </div>
       );
     }
-  });
+  }, [cart, FontAwesomeIcon, faCartShopping]);
   const userLogInOrOut = useMemo(() => {
     if (user.user === undefined) {
       return (
@@ -47,18 +51,27 @@ function Header() {
       );
     }
   }, [user]);
+  const changeCurr = (e) => {
+    dispatch(changeCurrency(e.target.value));
+  };
   return (
     <div className="header h-100 d-flex align-items-center">
       <Link href="/folder1/page1" className="text-decoration-none">
         <div className="logo">Logo</div>
       </Link>
       <div className="headerOptions d-flex align-items-center gap-4">
+        <Link
+          className="btn btn-outline-primary w-auto"
+          href={"/api/auth/logout"}
+        >
+          LogOut
+        </Link>
         {userLogInOrOut}
         <Link href="/folder2/page2" className="headerCart text-decoration-none">
           {cartLogo}
         </Link>
         <div className="currency">
-          <select name="currency" id="currency">
+          <select name="currency" id="currency" onChange={(e) => changeCurr(e)}>
             <option value="USD">USD</option>
             <option value="EUR">EUR</option>
             <option value="PHP">PHP</option>
