@@ -102,13 +102,13 @@ export default function Post() {
         ))
       ),
     [
+      curr,
+      currencySign,
+      rates,
       cart,
       minusCartQuantity,
       addCartQuantity,
       removeFromCart,
-      FontAwesomeIcon,
-      faXmark,
-      Image,
     ]
   );
   const placeOrder = () => {

@@ -88,21 +88,7 @@ export default function Post({ data }) {
         </div>
       </Link>
     ));
-  }, [
-    currencySign,
-    data,
-    arrayLimit,
-    FontAwesomeIcon,
-    Image,
-    faShoppingCart,
-    faStar,
-    faShop,
-    dispatch,
-    addItemToCart,
-    rates,
-    curr,
-    Math,
-  ]);
+  }, [currencySign, data, arrayLimit, rates, curr]);
   return (
     <>
       <Header />
