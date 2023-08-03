@@ -45,12 +45,12 @@ export default function Post() {
   const removeFromCart = (id) => {
     dispatch(removeItem(id));
   };
-  const cartItems = useMemo(() =>
-    cart.length === 0 ? (
-      <div>No Item in cart</div>
-    ) : (
-      cart.map(
-        (item) => (
+  const cartItems = useMemo(
+    () =>
+      cart.length === 0 ? (
+        <div>No Item in cart</div>
+      ) : (
+        cart.map((item) => (
           <div className="card w-auto" key={`${item.item.id}`}>
             <div className="row card-body align-items-center">
               <div className="col">
@@ -99,18 +99,17 @@ export default function Post() {
               </div>
             </div>
           </div>
-        ),
-        [
-          cart,
-          minusCartQuantity,
-          addCartQuantity,
-          removeFromCart,
-          FontAwesomeIcon,
-          faXmark,
-          Image,
-        ]
-      )
-    )
+        ))
+      ),
+    [
+      cart,
+      minusCartQuantity,
+      addCartQuantity,
+      removeFromCart,
+      FontAwesomeIcon,
+      faXmark,
+      Image,
+    ]
   );
   const placeOrder = () => {
     const order = {

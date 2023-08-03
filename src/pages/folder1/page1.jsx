@@ -25,7 +25,7 @@ export default function Post({ data }) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(GetRates());
-  }, [dispatch, GetRates]);
+  }, [dispatch]);
   const curr = useSelector((state) => state.store.currency.name);
   const rates = useSelector((state) => state.store.rates);
   let [arrayLimit, setArrayLimit] = useState(6);
@@ -89,6 +89,7 @@ export default function Post({ data }) {
       </Link>
     ));
   }, [
+    currencySign,
     data,
     arrayLimit,
     FontAwesomeIcon,

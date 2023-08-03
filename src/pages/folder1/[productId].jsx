@@ -38,7 +38,7 @@ export default function Product({ data }) {
       };
       dispatch(addProductToCart(product));
     },
-    [dispatch, productNumber, addProductToCart, data]
+    [dispatch, productNumber]
   );
   const currencySign = useMemo(() => {
     return curr === "USD" ? (

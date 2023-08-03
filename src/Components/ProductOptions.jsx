@@ -4,8 +4,10 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Image from "next/image";
+import { useSelector } from "react-redux";
 
 function ProductOptions() {
+  const cart = useSelector((state) => state.store.cart);
   const user = useUser();
   const userLogInOrOut = useMemo(() => {
     if (user.user === undefined) {
@@ -31,10 +33,9 @@ function ProductOptions() {
         </div>
       );
     }
-  }, [user, Link]);
+  }, [user]);
   const cartLogo = useMemo(() => {
-    const leg = 0;
-    if (leg === 0) {
+    if (cart.length === 0) {
       return <FontAwesomeIcon icon={faCartShopping} />;
     } else {
       return (
@@ -42,12 +43,11 @@ function ProductOptions() {
           <div className="cart-logo">
             <FontAwesomeIcon icon={faCartShopping} />
           </div>
-          <div className="cart-count">{leg}</div>
+          <div className="cart-count">{cart.length}</div>
         </div>
       );
     }
-    return;
-  });
+  }, [cart]);
   return (
     <div className="options">
       <Link href="/folder2/page2" className="productOptionCart">

@@ -26,7 +26,7 @@ function Header() {
         </div>
       );
     }
-  }, [cart, FontAwesomeIcon, faCartShopping]);
+  }, [cart]);
   const userLogInOrOut = useMemo(() => {
     if (user.user === undefined) {
       return (

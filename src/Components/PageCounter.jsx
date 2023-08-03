@@ -19,7 +19,7 @@ function PageCounter({ item }) {
       quantity: count,
     };
     dispatch(addProductToCart(product));
-  }, [item, count, dispatch, addProductToCart]);
+  }, [item, count, dispatch]);
   return (
     <div className="buy-item col btn btn-outline-primary w-100 d-flex justify-content-around align-items-center">
       <div className="plusMinus">
