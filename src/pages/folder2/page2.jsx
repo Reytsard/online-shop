@@ -28,62 +28,67 @@ export default function Post() {
   const removeFromCart = (id) => {
     dispatch(removeItem(id));
   };
-  const cartItems = useMemo(
-    () =>
-      cart.map((item) => (
-        <div className="card w-auto" key={`${item.item.id}`}>
-          <div className="row card-body align-items-center">
-            <div className="col">
-              <Image
-                src={item.item.images[0]}
-                alt="item"
-                height="53"
-                width="53"
-              />
-            </div>
-            <div className="col-6">
-              <div className="row">
-                <div className="card-title text-truncate">
-                  {item.item.title}
+  const cartItems = useMemo(() =>
+    cart.length === 0 ? (
+      <div>No Item in cart</div>
+    ) : (
+      cart.map(
+        (item) => (
+          <div className="card w-auto" key={`${item.item.id}`}>
+            <div className="row card-body align-items-center">
+              <div className="col">
+                <Image
+                  src={item.item.images[0]}
+                  alt="item"
+                  height="53"
+                  width="53"
+                />
+              </div>
+              <div className="col-6">
+                <div className="row">
+                  <div className="card-title text-truncate">
+                    {item.item.title}
+                  </div>
+                </div>
+                <div className="col d-flex justify-content-start gap-2 align-items-center">
+                  <button
+                    className="btn btn-outline-primary rounded"
+                    onClick={() => minusCartQuantity(item.item.id)}
+                  >
+                    -
+                  </button>
+                  <div>{item.quantity}</div>
+                  <button
+                    className="btn btn-outline-primary rounded"
+                    onClick={() => addCartQuantity(item.item.id)}
+                  >
+                    +
+                  </button>
                 </div>
               </div>
-              <div className="col d-flex justify-content-start gap-2 align-items-center">
+              <div className="col gray-color">${item.item.price}</div>
+              <div className="col">
                 <button
-                  className="btn btn-outline-primary rounded"
-                  onClick={() => minusCartQuantity(item.item.id)}
+                  className=" btn btn-outline-primary rounded-circle"
+                  onClick={() => removeFromCart(item.item.id)}
                 >
-                  -
-                </button>
-                <div>{item.quantity}</div>
-                <button
-                  className="btn btn-outline-primary rounded"
-                  onClick={() => addCartQuantity(item.item.id)}
-                >
-                  +
+                  <FontAwesomeIcon icon={faXmark} />
                 </button>
               </div>
             </div>
-            <div className="col gray-color">${item.item.price}</div>
-            <div className="col">
-              <button
-                className=" btn btn-outline-primary rounded-circle"
-                onClick={() => removeFromCart(item.item.id)}
-              >
-                <FontAwesomeIcon icon={faXmark} />
-              </button>
-            </div>
           </div>
-        </div>
-      )),
-    [
-      cart,
-      minusCartQuantity,
-      addCartQuantity,
-      removeFromCart,
-      FontAwesomeIcon,
-      faXmark,
-      Image,
-    ]
+        ),
+        [
+          cart,
+          minusCartQuantity,
+          addCartQuantity,
+          removeFromCart,
+          FontAwesomeIcon,
+          faXmark,
+          Image,
+        ]
+      )
+    )
   );
   return (
     <>
@@ -95,7 +100,9 @@ export default function Post() {
       </Link>
       <div className="cart-client-header ps-4">
         <div className="h1">Shopping Bag</div>
-        <span className="gray-color">4 items in the shopping bag</span>
+        <span className="gray-color">
+          {cart.length} items in the shopping bag
+        </span>
       </div>
       <div className="container cart-client p-3 d-flex flex-column row-gap-3">
         {cartItems}
@@ -114,22 +121,32 @@ export default function Post() {
         ) : (
           <div className="sign-in-status"></div>
         )}
-        <div className="place-order-buttons">
+        <div className="place-order-buttons p-4">
           {user.user === undefined ? (
-            <button className="btn bg-secondary rounded-pill" disabled>
+            <button
+              className="btn bg-secondary rounded-pill place-order-btn"
+              disabled
+            >
               Place order
+            </button>
+          ) : user.user !== undefined && cart.length === 0 ? (
+            <button
+              className="btn bg-primary rounded-pill text-decoration-none place-order-btn"
+              disabled
+            >
+              Place order (Add Onclick function for this)
             </button>
           ) : (
             <Link
               href="/order/order-placed"
-              className="btn bg-primary rounded-pill text-decoration-none"
+              className="btn bg-primary rounded-pill text-decoration-none place-order-btn"
             >
               Place order (Add Onclick function for this)
             </Link>
           )}
           <Link
             href="/folder1/page1"
-            className="btn rounded-pill btn-outline-primary text-decoration-none"
+            className="btn rounded-pill btn-outline-primary text-decoration-none continue-shopping"
           >
             Continue shopping
           </Link>

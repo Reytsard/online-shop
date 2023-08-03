@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import Image from "next/image";
 
 function ProductOptions() {
   const user = useUser();
@@ -16,11 +17,17 @@ function ProductOptions() {
     } else {
       return (
         <div className="profileLink">
-          {/* add a link to profile picture here */}
-          <btn className="Name btn">
+          <div className="Name btn">
+            <Image
+              src={user.user.picture}
+              alt="pfp"
+              width={53}
+              height={53}
+              className="rounded-circle"
+            />{" "}
             {user.user.name}
             {/* add the name of the user here */}
-          </btn>
+          </div>
         </div>
       );
     }

@@ -4,6 +4,7 @@ import "../styles/main.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import Image from "next/image";
 
 function Header() {
   const user = useUser();
@@ -32,16 +33,22 @@ function Header() {
     } else {
       return (
         <div className="profileLink">
-          {/* add a link to profile picture here */}
           <div className="Name">
-            Name Here{/* add the name of the user here */}
+            <Image
+              src={user.user.picture}
+              alt="pfp"
+              width={53}
+              height={53}
+              className="rounded-circle"
+            />{" "}
+            {user.user.name}
           </div>
         </div>
       );
     }
   }, [user]);
   return (
-    <div className="header d-flex">
+    <div className="header h-100 d-flex align-items-center">
       <Link href="/folder1/page1" className="text-decoration-none">
         <div className="logo">Logo</div>
       </Link>

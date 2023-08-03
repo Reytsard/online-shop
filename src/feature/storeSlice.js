@@ -10,6 +10,9 @@ const StoreSlice = createSlice({
     count: 0,
   },
   reducers: {
+    addProductToCart: (state, action) => {
+      state.cart.push(action.payload);
+    },
     addItemToCart: (state, action) => {
       const index = state.cart.findIndex(
         (item) => item.item.id === action.payload.id
@@ -58,5 +61,6 @@ export const {
   minusQuantity,
   addQuantity,
   removeItem,
+  addProductToCart,
 } = StoreSlice.actions;
 export default StoreSlice.reducer;

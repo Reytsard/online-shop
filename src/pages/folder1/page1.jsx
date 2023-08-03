@@ -22,13 +22,6 @@ export const getServerSideProps = async () => {
 
 export default function Post({ data }) {
   const dispatch = useDispatch();
-  const count = useSelector((state) => state.store.count);
-  const doAction = () => {
-    dispatch(addNumber());
-  };
-  const addToCart = (item) => {
-    dispatch(addItemToCart(item));
-  };
   let [arrayLimit, setArrayLimit] = useState(6);
   const addArrayLimit = () => {
     if (arrayLimit <= data.products.length) setArrayLimit(arrayLimit + 5);
@@ -44,7 +37,7 @@ export default function Post({ data }) {
         <div className="card rounded-2 shadow-sm">
           <div className="productImage ">
             <Image
-              className="rounded-top-2"
+              className="rounded-top-2 card-image"
               src={item.images[0]}
               alt="image"
               width="320"
@@ -110,14 +103,18 @@ export default function Post({ data }) {
       <div className="products gap-4 d-flex justify-content-evenly align-items-start flex-wrap mb-4 text-decoration-none">
         {dataCards}
       </div>
-      <div className="p-4">
-        <button
-          className="btn btn-outline-primary w-100 rounded-4"
-          onClick={addArrayLimit}
-        >
-          See More
-        </button>
-      </div>
+      {arrayLimit <= data.products.length ? (
+        <div className="p-4">
+          <button
+            className="btn btn-outline-primary w-100 rounded-4"
+            onClick={addArrayLimit}
+          >
+            See More
+          </button>
+        </div>
+      ) : (
+        <></>
+      )}
     </>
   );
 }

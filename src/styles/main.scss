@@ -257,6 +257,9 @@ footer {
   }
 }
 @include media-breakpoint-up(lg) {
+  .Name {
+    display: none;
+  }
   .product-item {
     padding: 60px 80px;
     display: grid;
@@ -289,16 +292,18 @@ footer {
       padding-top: 20px;
     }
   }
-  .header {
-    .profileLink {
-      display: block;
-    }
-  }
   .productOptionCart {
     display: none;
   }
   .header {
     .headerOptions {
+      .profileLink {
+        .Name {
+          display: block;
+        }
+        display: flex;
+        width: 100%;
+      }
       .cart-icon {
         display: block;
       }
@@ -365,6 +370,8 @@ footer {
     }
     .continue-shopping {
       @include normal-round-btn();
+      border: 1px solid $color-13;
+      color: $color-13;
       width: 100%;
       grid-column: 6/7;
       grid-row: 1/2;
@@ -375,7 +382,7 @@ footer {
       cursor: pointer;
     }
     .continue-shopping:hover {
-      @include hover-round-btn();
+      @include active-round-btn();
       width: 100%;
       grid-column: 6/7;
       grid-row: 1/2;
@@ -384,6 +391,7 @@ footer {
       display: grid;
       place-items: center;
       cursor: pointer;
+      color: white;
     }
     .continue-shopping:active {
       @include active-round-btn();

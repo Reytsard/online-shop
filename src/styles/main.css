@@ -12332,6 +12332,9 @@ footer {
 }
 
 @media (min-width: 992px) {
+  .Name {
+    display: none;
+  }
   .product-item {
     padding: 60px 80px;
     display: grid;
@@ -12365,11 +12368,15 @@ footer {
     grid-row: 3/4;
     padding-top: 20px;
   }
-  .header .profileLink {
-    display: block;
-  }
   .productOptionCart {
     display: none;
+  }
+  .header .headerOptions .profileLink {
+    display: flex;
+    width: 100%;
+  }
+  .header .headerOptions .profileLink .Name {
+    display: block;
   }
   .header .headerOptions .cart-icon {
     display: block;
@@ -12471,6 +12478,8 @@ footer {
     width: 91px;
     height: 48px;
     padding: 16px 20px;
+    border: 1px solid #0266ff !important;
+    color: #0266ff !important;
     width: 100%;
     grid-column: 6/7;
     grid-row: 1/2;
@@ -12482,8 +12491,9 @@ footer {
   }
   .place-order-buttons .continue-shopping:hover {
     border: 1px solid #0266ff !important;
+    background-color: #0266ff !important;
     border-radius: 40px;
-    color: #0266ff !important;
+    color: #ffffff !important;
     width: 91px;
     height: 48px;
     padding: 16px 20px;
@@ -12495,6 +12505,7 @@ footer {
     display: grid;
     place-items: center;
     cursor: pointer;
+    color: white;
   }
   .place-order-buttons .continue-shopping:active {
     border: 1px solid #0266ff !important;
