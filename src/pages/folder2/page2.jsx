@@ -6,14 +6,19 @@ import {
   minusQuantity,
   removeItem,
 } from "../../feature/storeSlice";
+import Header from "../../Components/Header";
+import ProductOptions from "../../Components/ProductOptions";
+import { useMemo } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function Post() {
+  const user = useUser();
   const dispatch = useDispatch();
   const count = useSelector((state) => state.store.count);
   const cart = useSelector((state) => state.store.cart);
-  const doAction = () => {
-    dispatch(addNumber());
-  };
   const minusCartQuantity = (id) => {
     dispatch(minusQuantity(id));
   };
@@ -23,31 +28,113 @@ export default function Post() {
   const removeFromCart = (id) => {
     dispatch(removeItem(id));
   };
-  return (
-    <>
-      <Link href={"/api/auth/logout"}>LogOut</Link>
-      <h1>Page 2</h1>
-      <h5>Count: {count}</h5>
-      <button onClick={doAction}>+</button>
-      <Link href={"/folder1/page1"}>back</Link>
-      <div className="container">
-        {cart.map((item) => (
-          <div className="card" key={`${item.item.id}`}>
-            <div className="card-title">{item.item.title}</div>
-            <div className="card-body d-flex">
-              <button onClick={() => minusCartQuantity(item.item.id)}>-</button>
-              {item.quantity}
-              <button onClick={() => addCartQuantity(item.item.id)}>+</button>
-              <button onClick={() => removeFromCart(item.item.id)}>
-                Remove
+  const cartItems = useMemo(
+    () =>
+      cart.map((item) => (
+        <div className="card w-auto" key={`${item.item.id}`}>
+          <div className="row card-body align-items-center">
+            <div className="col">
+              <Image
+                src={item.item.images[0]}
+                alt="item"
+                height="53"
+                width="53"
+              />
+            </div>
+            <div className="col-6">
+              <div className="row">
+                <div className="card-title text-truncate">
+                  {item.item.title}
+                </div>
+              </div>
+              <div className="col d-flex justify-content-start gap-2 align-items-center">
+                <button
+                  className="btn btn-outline-primary rounded"
+                  onClick={() => minusCartQuantity(item.item.id)}
+                >
+                  -
+                </button>
+                <div>{item.quantity}</div>
+                <button
+                  className="btn btn-outline-primary rounded"
+                  onClick={() => addCartQuantity(item.item.id)}
+                >
+                  +
+                </button>
+              </div>
+            </div>
+            <div className="col gray-color">${item.item.price}</div>
+            <div className="col">
+              <button
+                className=" btn btn-outline-primary rounded-circle"
+                onClick={() => removeFromCart(item.item.id)}
+              >
+                <FontAwesomeIcon icon={faXmark} />
               </button>
             </div>
           </div>
-        ))}
-      </div>
-      <Link href={"/order/order-placed"} className="place-order">
-        Place Order
+        </div>
+      )),
+    [
+      cart,
+      minusCartQuantity,
+      addCartQuantity,
+      removeFromCart,
+      FontAwesomeIcon,
+      faXmark,
+      Image,
+    ]
+  );
+  return (
+    <>
+      <Header />
+      <ProductOptions />
+      <Link href={"/api/auth/logout"}>LogOut</Link>
+      <Link href={"/folder1/page1"} className="btn btn-lg btn-outline-primary">
+        back
       </Link>
+      <div className="cart-client-header ps-4">
+        <div className="h1">Shopping Bag</div>
+        <span className="gray-color">4 items in the shopping bag</span>
+      </div>
+      <div className="container cart-client p-3 d-flex flex-column row-gap-3">
+        {cartItems}
+      </div>
+      <div className="details">
+        <div className="totalCost d-flex align-items-center gap-4">
+          <span>Total:</span>
+          <span>$12498</span>
+        </div>
+        {user.user === undefined ? (
+          <div className="sign-in-status">
+            <span>
+              To place an order, <a href="/sign-in/signin">sign in</a>
+            </span>
+          </div>
+        ) : (
+          <div className="sign-in-status"></div>
+        )}
+        <div className="place-order-buttons">
+          {user.user === undefined ? (
+            <button className="btn bg-secondary rounded-pill" disabled>
+              Place order
+            </button>
+          ) : (
+            <Link
+              href="/order/order-placed"
+              className="btn bg-primary rounded-pill text-decoration-none"
+            >
+              Place order (Add Onclick function for this)
+            </Link>
+          )}
+          <Link
+            href="/folder1/page1"
+            className="btn rounded-pill btn-outline-primary text-decoration-none"
+          >
+            Continue shopping
+          </Link>
+        </div>
+      </div>
     </>
   );
 }

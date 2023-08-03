@@ -2,8 +2,10 @@ import React, { useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
-function ProductOptions({ user }) {
+function ProductOptions() {
+  const user = useUser();
   const userLogInOrOut = useMemo(() => {
     if (user.user === undefined) {
       return (
@@ -15,13 +17,14 @@ function ProductOptions({ user }) {
       return (
         <div className="profileLink">
           {/* add a link to profile picture here */}
-          <div className="Name">
-            Name Here{/* add the name of the user here */}
-          </div>
+          <btn className="Name btn">
+            {user.user.name}
+            {/* add the name of the user here */}
+          </btn>
         </div>
       );
     }
-  }, [user]);
+  }, [user, Link]);
   const cartLogo = useMemo(() => {
     const leg = 0;
     if (leg === 0) {
@@ -40,7 +43,7 @@ function ProductOptions({ user }) {
   });
   return (
     <div className="options">
-      <Link href="/cart/cart" className="productOptionCart">
+      <Link href="/folder2/page2" className="productOptionCart">
         {cartLogo}
       </Link>
       {userLogInOrOut}

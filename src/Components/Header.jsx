@@ -3,8 +3,10 @@ import Link from "next/link";
 import "../styles/main.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
-function Header({ user }) {
+function Header() {
+  const user = useUser();
   const cartLogo = useMemo(() => {
     const leg = 0;
     if (leg === 0) {
@@ -40,12 +42,12 @@ function Header({ user }) {
   }, [user]);
   return (
     <div className="header d-flex">
-      <Link href="/products/productPage" className="text-decoration-none">
+      <Link href="/folder1/page1" className="text-decoration-none">
         <div className="logo">Logo</div>
       </Link>
       <div className="headerOptions d-flex align-items-center gap-4">
         {userLogInOrOut}
-        <Link href="/cart/cart" className="headerCart text-decoration-none">
+        <Link href="/folder2/page2" className="headerCart text-decoration-none">
           {cartLogo}
         </Link>
         <div className="currency">
