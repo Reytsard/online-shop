@@ -12214,7 +12214,10 @@ textarea.form-control-lg {
   width: 43px;
 }
 
-.header .profileLink {
+.header .headerOptions .profileLink .header-logout {
+  display: block;
+}
+.header .headerOptions .profileLink .Name {
   display: none;
 }
 

@@ -12,7 +12,7 @@ export default function Home() {
   }, [redirect]);
   return (
     <main className={styles.main}>
-      <Link href={"/folder1/page1"}>Products</Link>
+      <h1>Redirecting...</h1>
     </main>
   );
 }

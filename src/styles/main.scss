@@ -184,8 +184,15 @@
   width: 43px;
 }
 .header {
-  .profileLink {
-    display: none;
+  .headerOptions {
+    .profileLink {
+      .header-logout {
+        display: block;
+      }
+      .Name {
+        display: none;
+      }
+    }
   }
 }
 .place-order-btn {
