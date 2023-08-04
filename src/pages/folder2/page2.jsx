@@ -164,7 +164,7 @@ export default function Post() {
         {user.user === undefined ? (
           <div className="sign-in-status">
             <span>
-              To place an order, <Link href="/sign-in/signin">sign in</Link>
+              To place an order, <Link href="/api/auth/login">sign in</Link>
             </span>
           </div>
         ) : (
