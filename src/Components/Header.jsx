@@ -30,13 +30,23 @@ function Header() {
   const userLogInOrOut = useMemo(() => {
     if (user.user === undefined) {
       return (
-        <Link href="/api/auth/login" className="sign-in-btn">
+        <Link href={"/api/auth/login"} className="sign-in-btn">
           Sign in
         </Link>
       );
     } else {
       return (
         <div className="profileLink">
+          {user.user === undefined ? (
+            <></>
+          ) : (
+            <Link
+              className="btn btn-outline-primary w-auto header-logout mx-3 d-flex align-items-center"
+              href={"/api/auth/logout"}
+            >
+              LogOut
+            </Link>
+          )}
           <div className="Name">
             <Image
               src={user.user.picture}
@@ -60,12 +70,6 @@ function Header() {
         <div className="logo">Logo</div>
       </Link>
       <div className="headerOptions d-flex align-items-center gap-4">
-        <Link
-          className="btn btn-outline-primary w-auto"
-          href={"/api/auth/logout"}
-        >
-          LogOut
-        </Link>
         {userLogInOrOut}
         <Link href="/folder2/page2" className="headerCart text-decoration-none">
           {cartLogo}
