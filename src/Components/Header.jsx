@@ -51,10 +51,10 @@ function Header() {
             <></>
           ) : (
             <Link
-              className="btn btn-outline-primary w-auto header-logout mx-3 d-flex align-items-center"
+              className="btn btn-outline-primary rounded-pill w-auto header-logout mx-3 d-flex align-items-center"
               href={"/api/auth/logout"}
             >
-              LogOut
+              Sign out
             </Link>
           )}
         </div>
