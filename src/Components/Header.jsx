@@ -37,16 +37,6 @@ function Header() {
     } else {
       return (
         <div className="profileLink">
-          {user.user === undefined ? (
-            <></>
-          ) : (
-            <Link
-              className="btn btn-outline-primary w-auto header-logout mx-3 d-flex align-items-center"
-              href={"/api/auth/logout"}
-            >
-              LogOut
-            </Link>
-          )}
           <div className="Name">
             <Image
               src={user.user.picture}
@@ -57,6 +47,16 @@ function Header() {
             />{" "}
             {user.user.name}
           </div>
+          {user.user === undefined ? (
+            <></>
+          ) : (
+            <Link
+              className="btn btn-outline-primary w-auto header-logout mx-3 d-flex align-items-center"
+              href={"/api/auth/logout"}
+            >
+              LogOut
+            </Link>
+          )}
         </div>
       );
     }
