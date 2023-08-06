@@ -12,6 +12,7 @@ import {
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import PageCounter from "../../Components/PageCounter";
+import Footer from "../../Components/Footer";
 
 export const getServerSideProps = async () => {
   const response = await fetch(`${process.env.FRONTEND_URL}/api/test`);
@@ -109,6 +110,7 @@ export default function Post({ data }) {
       ) : (
         <></>
       )}
+      <Footer />
     </>
   );
 }

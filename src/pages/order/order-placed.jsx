@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import Header from "../../Components/Header";
 import ProductOptions from "../../Components/ProductOptions";
 import Image from "next/image";
+import Footer from "../../Components/Footer";
 
 export default function Placed() {
   const cart = useSelector((state) => state.store.cart);
@@ -45,6 +46,7 @@ export default function Placed() {
       >
         Continue Shopping
       </Link>
+      <Footer />
     </>
   );
 }

@@ -8,6 +8,7 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { useCallback, useMemo, useState } from "react";
+import Footer from "../../Components/Footer";
 
 export const getServerSideProps = async (context) => {
   const id = context.params?.productId;
@@ -151,6 +152,7 @@ export default function Product({ data }) {
           </div>
         </div>
       </>
+      <Footer />
     </>
   );
 }

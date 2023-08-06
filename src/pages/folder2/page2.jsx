@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import Footer from "../../Components/Footer";
 
 export default function Post() {
   const curr = useSelector((state) => state.store.currency.name);
@@ -202,6 +203,7 @@ export default function Post() {
           </Link>
         </div>
       </div>
+      <Footer />
     </>
   );
 }
