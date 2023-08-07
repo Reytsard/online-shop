@@ -19,9 +19,11 @@ function Header() {
     } else {
       return (
         <div className="cartWithCount">
-          <div className="cart-logo">
-            <FontAwesomeIcon icon={faCartShopping} />
-          </div>
+          <FontAwesomeIcon
+            icon={faCartShopping}
+            className="d-flex justify-content-center align-items-center"
+          />
+
           <div className="cart-count">{cart.length}</div>
         </div>
       );
