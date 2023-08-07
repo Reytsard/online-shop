@@ -11984,6 +11984,10 @@ body {
   width: 100vw;
 }
 
+.cartWithCount {
+  padding-top: 12px;
+}
+
 footer {
   color: #9d9db5 !important;
   background-color: #10131c !important;
@@ -12375,6 +12379,9 @@ footer .follow-us-icons .icon {
 }
 
 @media (min-width: 992px) {
+  .cartWithCount {
+    padding-top: 15px;
+  }
   footer {
     position: relative;
     bottom: 0;
