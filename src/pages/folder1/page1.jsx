@@ -25,6 +25,7 @@ export default function Post({ data }) {
     async function fetchCategory() {
       const response = await fetch("/api/fetchCategories");
       const data = await response.json();
+      // console.log(data);
       setCategories(data);
     }
     fetchCategory();
@@ -168,11 +169,14 @@ export default function Post({ data }) {
             className="filter-brands btn btn-lg btn-outline-primary rounded-pill"
           >
             <option value={""}>Category</option>
-            {categories.map((category) => (
-              <option key={`${category} `} value={category}>
-                {category}
-              </option>
-            ))}
+            {categories.map((category) => {
+              console.log(category);
+              return (
+                <option key={`${category.name} `} value={category.name}>
+                  {category.name}
+                </option>
+              );
+            })}
           </select>
         </div>
       </div>
